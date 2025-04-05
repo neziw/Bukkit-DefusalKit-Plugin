@@ -49,18 +49,13 @@ public class GetDefusalItemCommand implements BaseCommand {
             return true;
         }
 
-        final Optional<ItemStack> defusalItemOpt = this.configService.defusalItem();
+        this.configService.defusalItem().ifPresentOrElse(defusalItem -> {
 
-        if (defusalItemOpt.isEmpty()) {
-            MessageUtil.sendError(player, "The defusal item is not configured correctly. Contact an administrator.");
-            return true;
-        }
+            player.getInventory().addItem(defusalItem);
+            MessageUtil.sendSuccess(player, "You have received the defusal kit item (" + defusalItem.getType().name() + ").");
 
-        final ItemStack defusalItem = defusalItemOpt.get();
+        }, () -> MessageUtil.sendError(player, "The defusal item is not configured correctly. Contact an administrator."));
 
-        player.getInventory().addItem(defusalItem);
-
-        MessageUtil.sendSuccess(player, "You have received the defusal kit item (" + defusalItem.getType().name() + ").");
         return true;
     }
 
