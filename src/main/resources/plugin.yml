@@ -1,0 +1,25 @@
+name: DefusalKit
+version: 1.0.0
+main: ovh.neziw.defusalkit.bootstrap.DefusalKitPlugin
+api-version: '1.21'
+author: neziw
+description: Allows defusing primed TNT with a specific item.
+commands:
+  defusalkit:
+    description: Main command for DefusalKit.
+    usage: /<command> [get|set]
+    aliases: [dk]
+    permission: defusalkit.command.base
+permissions:
+  defusalkit.command.base:
+    description: Allows using the base /defusalkit command.
+    default: true
+  defusalkit.command.get:
+    description: Allows using the /defusalkit get subcommand.
+    default: op
+  defusalkit.command.set:
+    description: Allows using the /defusalkit set subcommand.
+    default: op
+  defusalkit.defuse:
+    description: Allows defusing TNT.
+    default: op
