@@ -25,10 +25,8 @@ package ovh.neziw.defusalkit.command;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import ovh.neziw.defusalkit.config.ConfigurationService;
 import ovh.neziw.defusalkit.permission.PluginPermission;

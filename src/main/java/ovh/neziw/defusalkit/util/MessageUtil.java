@@ -54,8 +54,4 @@ public final class MessageUtil {
     public static void sendError(@NotNull final CommandSender sender, @NotNull final String message) {
         sender.sendMessage(PREFIX.append(format("<red>" + message + "</red>")));
     }
-
-    public static void sendInfo(@NotNull final CommandSender sender, @NotNull final String message) {
-        sender.sendMessage(PREFIX.append(format("<gray>" + message + "</gray>")));
-    }
 }

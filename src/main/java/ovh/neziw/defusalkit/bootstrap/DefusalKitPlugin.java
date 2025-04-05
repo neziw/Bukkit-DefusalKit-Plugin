@@ -25,7 +25,6 @@ package ovh.neziw.defusalkit.bootstrap;
 
 import java.util.logging.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 import ovh.neziw.defusalkit.command.CommandManager;
 import ovh.neziw.defusalkit.config.BukkitConfigurationService;
 import ovh.neziw.defusalkit.config.ConfigurationService;
@@ -38,28 +37,19 @@ import ovh.neziw.defusalkit.listener.ListenerManager;
 
 public class DefusalKitPlugin extends JavaPlugin {
 
-    private ConfigurationService configurationService;
-    private ItemService itemService;
-    private DefusalService defusalService;
-    private CommandManager commandManager;
-    private ListenerManager bukkitListenerManager;
-
     @Override
     public void onEnable() {
         final Logger logger = this.getLogger();
         logger.info("Enabling DefusalKit v" + this.getDescription().getVersion() + "...");
 
-        this.itemService = new BukkitItemService();
+        final ItemService itemService = new BukkitItemService();
+        final ConfigurationService configurationService = new BukkitConfigurationService(this, itemService);
+        final DefusalService defusalService = new StandardDefusalService(configurationService, itemService, logger);
+        final CommandManager commandManager = new CommandManager(this, configurationService, itemService);
+        final ListenerManager bukkitListenerManager = new BukkitListenerManager(this, defusalService);
 
-        this.configurationService = new BukkitConfigurationService(this, this.itemService);
-
-        this.defusalService = new StandardDefusalService(this.configurationService, this.itemService, logger);
-
-        this.commandManager = new CommandManager(this, this.configurationService, this.itemService);
-        this.bukkitListenerManager = new BukkitListenerManager(this, this.defusalService);
-
-        this.commandManager.registerMainCommand("defusalkit");
-        this.bukkitListenerManager.registerListeners();
+        commandManager.registerMainCommand("defusalkit");
+        bukkitListenerManager.registerListeners();
 
         logger.info("DefusalKit enabled successfully.");
     }
@@ -67,23 +57,5 @@ public class DefusalKitPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         this.getLogger().info("Disabling DefusalKit...");
-    }
-
-    @NotNull
-    public ConfigurationService configurationservice() {
-        if (this.configurationService == null) throw new IllegalStateException("Plugin not enabled yet!");
-        return this.configurationService;
-    }
-
-    @NotNull
-    public ItemService itemService() {
-        if (this.itemService == null) throw new IllegalStateException("Plugin not enabled yet!");
-        return this.itemService;
-    }
-
-    @NotNull
-    public DefusalService defusalService() {
-        if (this.defusalService == null) throw new IllegalStateException("Plugin not enabled yet!");
-        return this.defusalService;
     }
 }
