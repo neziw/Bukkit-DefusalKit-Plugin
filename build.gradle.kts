@@ -31,6 +31,6 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
 //    testImplementation("com.github.MockBukkit:MockBukkit:v1.21-SNAPSHOT")
 }
